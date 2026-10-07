@@ -1,0 +1,233 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Vibe</title>
+    <meta
+      name="description"
+      content="Vibe is a safe social app for kids and teens with moderated communities and parent controls."
+    />
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap"
+      rel="stylesheet"
+    />
+    <link rel="stylesheet" href="styles.css" />
+  </head>
+  <body>
+    <div id="app" class="app-shell">
+      <aside class="sidebar card hidden" id="sidebar">
+        <div class="brand-row">
+          <div class="logo">V</div>
+          <div>
+            <h2>Vibe</h2>
+            <small>Safe social circle</small>
+          </div>
+        </div>
+
+        <nav class="nav-stack" id="navDesktop"></nav>
+
+        <div class="sidebar-footer">
+          <button class="ghost-button" id="themeToggle">Toggle theme</button>
+          <button class="danger-button" id="logoutBtnDesktop">Log out</button>
+        </div>
+      </aside>
+
+      <main class="main-content">
+        <header class="topbar card hidden" id="topbar">
+          <div class="search-wrap">
+            <span>⌕</span>
+            <input id="searchUsersInput" type="search" placeholder="Search friends" />
+          </div>
+          <div class="topbar-actions">
+            <button class="icon-button" id="newPostFab" title="Create">＋</button>
+            <button class="icon-button" id="notificationsBell" title="Notifications">🔔</button>
+          </div>
+        </header>
+
+        <section id="authScreen" class="screen active auth-screen">
+          <div class="auth-panel card">
+            <div class="auth-brand">
+              <div class="logo large">V</div>
+              <h1>Vibe</h1>
+            </div>
+
+            <div class="auth-toggle">
+              <button class="toggle-button active" data-auth-view="login">Log in</button>
+              <button class="toggle-button" data-auth-view="signup">Sign up</button>
+            </div>
+
+            <form id="loginForm" class="auth-form active">
+              <input type="email" id="loginEmail" placeholder="Email" required />
+              <input type="password" id="loginPassword" placeholder="Password" required />
+              <button class="primary-button" type="submit">Log in</button>
+            </form>
+
+            <form id="signupForm" class="auth-form hidden">
+              <input type="text" id="signupUsername" placeholder="Username" required />
+              <input type="text" id="signupDisplayName" placeholder="Display name" required />
+              <input type="email" id="signupEmail" placeholder="Email" required />
+              <input type="date" id="signupDob" required />
+              <input type="password" id="signupPassword" placeholder="Password" required />
+              <label class="checkbox-row">
+                <input type="checkbox" id="signupPrivate" checked />
+                <span>Private account by default</span>
+              </label>
+              <button class="primary-button" type="submit">Create account</button>
+            </form>
+
+            <div class="demo-box">
+              <p>Demo accounts</p>
+              <ul>
+                <li>admin@vibe.app / admin123</li>
+                <li>parent@vibe.app / parent123</li>
+                <li>maya@vibe.app / demo123</li>
+              </ul>
+            </div>
+          </div>
+        </section>
+
+        <section id="appScreen" class="screen hidden">
+          <div id="feedView" class="view-screen active">
+            <div class="section-heading">
+              <h2>Home</h2>
+            </div>
+            <div id="feedList" class="feed-list"></div>
+          </div>
+
+          <div id="reelsView" class="view-screen hidden">
+            <div class="section-heading">
+              <h2>Reels</h2>
+            </div>
+            <div id="reelsList" class="reels-list"></div>
+          </div>
+
+          <div id="friendsView" class="view-screen hidden">
+            <div class="section-heading">
+              <h2>Friends</h2>
+            </div>
+            <div class="card stack-card">
+              <h3>Search users</h3>
+              <div class="search-inline">
+                <input type="text" id="friendSearchInput" placeholder="Search by username" />
+              </div>
+              <div id="searchResults" class="search-results"></div>
+            </div>
+            <div class="row-split">
+              <div class="card stack-card">
+                <h3>Requests</h3>
+                <div id="friendRequestsList"></div>
+              </div>
+              <div class="card stack-card">
+                <h3>My friends</h3>
+                <div id="friendsList"></div>
+              </div>
+            </div>
+          </div>
+
+          <div id="createView" class="view-screen hidden">
+            <div class="section-heading">
+              <h2>Create</h2>
+            </div>
+            <div class="card create-card">
+              <div class="segmented-control">
+                <button class="segment-btn active" data-create-type="post">Post</button>
+                <button class="segment-btn" data-create-type="reel">Reel</button>
+              </div>
+
+              <form id="createPostForm">
+                <textarea id="postText" rows="4" placeholder="Share something kind and safe..."></textarea>
+                <input type="url" id="postImage" placeholder="Cover image URL (optional)" />
+                <button class="primary-button" type="submit">Publish post</button>
+              </form>
+
+              <form id="createReelForm" class="hidden">
+                <input type="text" id="reelTitle" placeholder="Reel title" />
+                <input type="url" id="reelVideo" placeholder="Video URL" />
+                <textarea id="reelCaption" rows="3" placeholder="Write a caption..."></textarea>
+                <button class="primary-button" type="submit">Publish reel</button>
+              </form>
+            </div>
+          </div>
+
+          <div id="notificationsView" class="view-screen hidden">
+            <div class="section-heading">
+              <h2>Notifications</h2>
+            </div>
+            <div id="notificationsList" class="notification-list"></div>
+          </div>
+
+          <div id="profileView" class="view-screen hidden">
+            <div id="profileContent"></div>
+          </div>
+
+          <div id="adminView" class="view-screen hidden">
+            <div class="section-heading">
+              <h2>Admin dashboard</h2>
+            </div>
+            <div id="adminContent"></div>
+          </div>
+        </section>
+      </main>
+    </div>
+
+    <nav class="mobile-nav card" id="mobileNav"></nav>
+
+    <template id="postTemplate">
+      <article class="card post-card">
+        <div class="post-header">
+          <div class="avatar" data-avatar></div>
+          <div>
+            <h4 data-name></h4>
+            <small data-meta></small>
+          </div>
+          <button class="ghost-button small" data-report>Report</button>
+        </div>
+        <p class="post-text" data-text></p>
+        <img class="post-image hidden" data-image />
+        <div class="reactions">
+          <button class="reaction-button" data-like>♡ Like</button>
+          <button class="reaction-button" data-comment>💬 Comment</button>
+          <button class="reaction-button" data-save>🔖 Save</button>
+          <button class="reaction-button" data-share>↗ Share</button>
+        </div>
+        <div class="comment-list" data-comments></div>
+        <form class="comment-form">
+          <input type="text" placeholder="Add a comment" class="comment-input" />
+          <button type="submit" class="primary-button small">Post</button>
+        </form>
+      </article>
+    </template>
+
+    <template id="reelTemplate">
+      <article class="card reel-card">
+        <div class="reel-header">
+          <div class="avatar" data-avatar></div>
+          <div>
+            <h4 data-name></h4>
+            <small data-meta></small>
+          </div>
+        </div>
+        <div class="reel-video-box">
+          <video controls playsinline muted loop class="reel-video" data-video></video>
+        </div>
+        <p data-caption></p>
+        <div class="reactions">
+          <button class="reaction-button" data-like>♡ Like</button>
+          <button class="reaction-button" data-comment>💬 Comment</button>
+          <button class="reaction-button" data-save>🔖 Save</button>
+          <button class="reaction-button" data-share>↗ Share</button>
+        </div>
+      </article>
+    </template>
+
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-auth-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-firestore-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.12.2/firebase-storage-compat.js"></script>
+    <script src="firebase-config.js"></script>
+    <script src="app.js"></script>
+  </body>
+</html>
